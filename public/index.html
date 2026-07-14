@@ -26,8 +26,17 @@
 			crossorigin
 		/>
 		<link
+			rel="preload"
+			as="font"
 			href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap"
-			rel="stylesheet"
+			type="woff2"
+			crossorigin
+		/>
+		<link
+			rel="preload"
+			href="assets/images/logo.svg"
+			as="image"
+			fetchpriority="high"
 		/>
 		<meta
 			property="og:type"
@@ -98,38 +107,38 @@
 
 		<script>
 			document.getElementById('notify-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const form = e.target;
-  const emailInput = document.getElementById('subscriber-email');
-  const messageBox = document.getElementById('form-message');
+				e.preventDefault();
+				const form = e.target;
+				const emailInput = document.getElementById('subscriber-email');
+				const messageBox = document.getElementById('form-message');
 
-  messageBox.textContent = 'Sending...';
-  messageBox.style.color = '#a1a1aa';
+				messageBox.textContent = 'Sending...';
+				messageBox.style.color = '#a1a1aa';
 
-  try {
-    const response = await fetch(form.action, {
-      method: form.method,
-      body: JSON.stringify({ email: emailInput.value }),
-      headers: { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json' 
-      },
-    });
+				try {
+					const response = await fetch(form.action, {
+						method: form.method,
+						body: JSON.stringify({ email: emailInput.value }),
+						headers: {
+							'Content-Type': 'application/json',
+							Accept: 'application/json',
+						},
+					});
 
-    const result = await response.json();
+					const result = await response.json();
 
-    if (response.ok) {
-      messageBox.textContent = result.message || "You're on the list!";
-      messageBox.style.color = '#4ade80';
-      emailInput.value = '';
-    } else {
-      throw new Error(result.error || 'Submission failed.');
-    }
-  } catch (error) {
-    messageBox.textContent = error.message || 'Oops! Something went wrong.';
-    messageBox.style.color = '#f87171';
-  }
-});
+					if (response.ok) {
+						messageBox.textContent = result.message || "You're on the list!";
+						messageBox.style.color = '#4ade80';
+						emailInput.value = '';
+					} else {
+						throw new Error(result.error || 'Submission failed.');
+					}
+				} catch (error) {
+					messageBox.textContent = error.message || 'Oops! Something went wrong.';
+					messageBox.style.color = '#f87171';
+				}
+			});
 		</script>
 	</body>
 </html>
