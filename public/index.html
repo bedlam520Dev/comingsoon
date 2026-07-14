@@ -76,7 +76,7 @@
 			<form
 				id="notify-form"
 				method="POST"
-				action="/submit"
+				action="https://broad-poetry-5530.bedlam520.workers.dev/"
 				class="notify-form"
 			>
 				<input
@@ -98,36 +98,38 @@
 
 		<script>
 			document.getElementById('notify-form').addEventListener('submit', async (e) => {
-				e.preventDefault();
-				const form = e.target;
-				const emailInput = document.getElementById('subscriber-email');
-				const messageBox = document.getElementById('form-message');
+  e.preventDefault();
+  const form = e.target;
+  const emailInput = document.getElementById('subscriber-email');
+  const messageBox = document.getElementById('form-message');
 
-				messageBox.textContent = 'Sending...';
-				messageBox.style.color = '#a1a1aa';
+  messageBox.textContent = 'Sending...';
+  messageBox.style.color = '#a1a1aa';
 
-				try {
-					const formData = new FormData(form);
-					const response = await fetch(form.action, {
-						method: form.method,
-						body: formData,
-						headers: { Accept: 'application/json' },
-					});
+  try {
+    const response = await fetch(form.action, {
+      method: form.method,
+      body: JSON.stringify({ email: emailInput.value }),
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json' 
+      },
+    });
 
-					const result = await response.json();
+    const result = await response.json();
 
-					if (response.ok) {
-						messageBox.textContent = result.message || "You're on the list!";
-						messageBox.style.color = '#4ade80';
-						emailInput.value = '';
-					} else {
-						throw new Error(result.error || 'Submission failed.');
-					}
-				} catch (error) {
-					messageBox.textContent = error.message || 'Oops! Something went wrong.';
-					messageBox.style.color = '#f87171';
-				}
-			});
+    if (response.ok) {
+      messageBox.textContent = result.message || "You're on the list!";
+      messageBox.style.color = '#4ade80';
+      emailInput.value = '';
+    } else {
+      throw new Error(result.error || 'Submission failed.');
+    }
+  } catch (error) {
+    messageBox.textContent = error.message || 'Oops! Something went wrong.';
+    messageBox.style.color = '#f87171';
+  }
+});
 		</script>
 	</body>
 </html>
