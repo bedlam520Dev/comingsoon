@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0"
+		/>
+
+		<title>Jay 'N Jay Movers | Coming Soon</title>
+		<meta
+			name="description"
+			content="Something awesome is building in the studio. Stay tuned for the official launch."
+		/>
+		<meta
+			name="robots"
+			content="index, follow"
+		/>
+
+		<meta
+			property="og:type"
+			content="website"
+		/>
+		<meta
+			property="og:title"
+			content="Jay 'N Jay Movers | Coming Soon"
+		/>
+		<meta
+			property="og:description"
+			content="Something awesome is building in the studio. Stay tuned for the official launch."
+		/>
+		<meta
+			property="og:image"
+			content="assets/images/og-image.jpg"
+		/>
+
+		<link
+			rel="icon"
+			href="assets/images/favicon.ico"
+			type="image/x-icon"
+		/>
+		<link
+			rel="stylesheet"
+			href="assets/css/styles.css"
+		/>
+	</head>
+	<body>
+		<div
+			class="bg-blur-layer"
+			aria-hidden="true"
+		></div>
+
+		<main class="content-container">
+			<header class="heading-box">
+				<h1>COMING SOON</h1>
+			</header>
+
+			<form
+				id="notify-form"
+				method="POST"
+				action="/submit"
+				class="notify-form"
+			>
+				<input
+					type="email"
+					name="email"
+					id="subscriber-email"
+					placeholder="Enter your email address"
+					required
+					aria-label="Email address"
+				/>
+				<button type="submit">Notify Me</button>
+			</form>
+			<div
+				id="form-message"
+				class="form-message"
+				aria-live="polite"
+			></div>
+
+			<div class="logo-box">
+				<img
+					src="assets/images/logo.svg"
+					alt="Brand Logo"
+					width="160"
+					height="160"
+					loading="eager"
+				/>
+			</div>
+		</main>
+
+		<script>
+			document.getElementById('notify-form').addEventListener('submit', async (e) => {
+				e.preventDefault();
+				const form = e.target;
+				const emailInput = document.getElementById('subscriber-email');
+				const messageBox = document.getElementById('form-message');
+
+				messageBox.textContent = 'Sending...';
+				messageBox.style.color = '#a1a1aa';
+
+				try {
+					const formData = new FormData(form);
+					const response = await fetch(form.action, {
+						method: form.method,
+						body: formData,
+						headers: { Accept: 'application/json' },
+					});
+
+					const result = await response.json();
+
+					if (response.ok) {
+						messageBox.textContent = result.message || "You're on the list!";
+						messageBox.style.color = '#4ade80';
+						emailInput.value = '';
+					} else {
+						throw new Error(result.error || 'Submission failed.');
+					}
+				} catch (error) {
+					messageBox.textContent = error.message || 'Oops! Something went wrong.';
+					messageBox.style.color = '#f87171';
+				}
+			});
+		</script>
+	</body>
+</html>

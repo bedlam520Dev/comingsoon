@@ -1,0 +1,11 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "coming-soon-site",
+	"pages_build_output_dir": "./public",
+	"send_email": [
+		{
+			"name": "EMAIL",
+			"destination_address": "jaynjaymovers503@gmail.com",
+		},
+	],
+}
