@@ -16,7 +16,19 @@
 			name="robots"
 			content="index, follow"
 		/>
-
+		<link
+			rel="preconnect"
+			href="https://fonts.googleapis.com"
+		/>
+		<link
+			rel="preconnect"
+			href="https://fonts.gstatic.com"
+			crossorigin
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap"
+			rel="stylesheet"
+		/>
 		<meta
 			property="og:type"
 			content="website"
@@ -46,14 +58,20 @@
 	</head>
 	<body>
 		<div
-			class="bg-blur-layer"
+			class="hero-bg"
 			aria-hidden="true"
 		></div>
 
 		<main class="content-container">
-			<header class="heading-box">
-				<h1>COMING SOON</h1>
-			</header>
+			<div class="hero-visual">
+				<img
+					class="hero-logo"
+					src="assets/images/logo.svg"
+					alt="Brand Logo"
+					loading="eager"
+				/>
+				<h1 class="main-heading">COMING SOON</h1>
+			</div>
 
 			<form
 				id="notify-form"
@@ -76,16 +94,6 @@
 				class="form-message"
 				aria-live="polite"
 			></div>
-
-			<div class="logo-box">
-				<img
-					src="assets/images/logo.svg"
-					alt="Brand Logo"
-					width="160"
-					height="160"
-					loading="eager"
-				/>
-			</div>
 		</main>
 
 		<script>
